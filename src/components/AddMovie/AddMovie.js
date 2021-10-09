@@ -5,11 +5,9 @@ Modal.setAppElement('#root');
 
 const AddMovie = ({ addNewMovie }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [date, setDate] = useState('');
+  const [title, setName] = useState('');
   const [rating, setRating] = useState('');
-  const [image, setImage] = useState('');
-  const [type, setType] = useState('');
+  const [posterURL, setImage] = useState('');
   const [description, setDescription] = useState('');
 
   const openModal = () => setModalIsOpen(true);
@@ -20,20 +18,16 @@ const AddMovie = ({ addNewMovie }) => {
     e.preventDefault();
     let newMovie = {
       id: Math.random(),
-      name,
-      date,
+      title,
       rating: +rating,
-      image,
-      type,
+      posterURL,
       description,
     };
     addNewMovie(newMovie);
     setModalIsOpen(false);
     setName('');
-    setDate('');
     setRating('');
     setImage('');
-    setType('');
     setDescription('');
   };
 
@@ -50,13 +44,13 @@ const AddMovie = ({ addNewMovie }) => {
         >
 
           <h1 className="addMovie-h1">Add A Movie</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <label>Movie Name</label>
             <input
             className="form-control"
               type="text"
               name="name"
-              value={name}
+              value={title}
               required
               onChange={(event) => setName(event.target.value)
              
@@ -72,32 +66,15 @@ const AddMovie = ({ addNewMovie }) => {
               required
               onChange={(event) => setRating(event.target.value)}
             />
-            <label>Movie Release Date</label>
-            <input
-             className="form-control"
-              type="number"
-              name="date"
-              value={date}
-              required
-              onChange={(event) => setDate(event.target.value)}
-            />
+         
             <label>Movie Image</label>
             <input
              className="form-control"
               type="url"
               name="image"
               required
-              value={image}
+              value={posterURL}
               onChange={(event) => setImage(event.target.value)}
-            />
-            <label>Movie Type</label>
-            <input
-             className="form-control"
-              type="text"
-              name="type"
-              value={type}
-              required
-              onChange={(event) => setType(event.target.value)}
             />
             <label>Movie Summary</label>
             <textarea
@@ -108,14 +85,14 @@ const AddMovie = ({ addNewMovie }) => {
               required
               onChange={(event) => setDescription(event.target.value)}
             />
-          </form>
-          <button className="Modal-btn btn btn-success" onClick={handleSubmit}>
+       
+          <button className="Modal-btn btn btn-success" type="submit">
             Submit
           </button>
           <button className="Modal-btn btn btn-danger" onClick={closeModal}>
             close
           </button>
-
+          </form>
         </Modal>
       </div>
     </div>
